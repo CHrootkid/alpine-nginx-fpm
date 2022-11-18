@@ -32,7 +32,7 @@ RUN mkdir -p /etc/php/8.0/
 RUN ln -s /etc/php8 /etc/php/8.0/fpm
 RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
 
-RUN apk add nano lftp openssl-client
+RUN apk add nano lftp openssh-client
 
 
 RUN (delgroup www-data || true ) && deluser xfs ||true 
