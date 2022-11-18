@@ -6,7 +6,8 @@ RUN mkdir -p /etc/redis && ln -s /etc/redis.conf /etc/redis/
 RUN touch /root/.bashrc
 RUN addgroup memcache && ((echo ;echo ;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo) |adduser -G memcache -D -h /var/www -s /bin/bash memcache )
 RUN usermod -s /bin/bash root && addgroup crontabs
-RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/ssh/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/ssh/sftp-server /usr/libexec/sftp-server) || true
+RUN test -e /usr/libexec/sftp-server     || (test  -e /usr/lib/ssh/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/ssh/sftp-server /usr/libexec/sftp-server) || true
+RUN test -e /usr/lib/openssh/stfp-server || ( test -e /usr/lib/openssh/  || mkdir /usr/lib/openssh/ ; ln -s /usr/lib/ssh/sftp-server /usr/lib/openssh/stfp-server  )
 #RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/sftp-server /usr/libexec/sftp-server) || true
 RUN mkdir /var/spool/crontabs
 RUN touch /var/spool/crontabs/www-data
@@ -41,7 +42,7 @@ RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
 
 
 RUN apk add nano lftp openssh-client
-RUn sed 's~^\[mysqld\]~[mysqld]\ndata=/var/lib/mysql\nbind-address = 0.0.0.0\nport = 3306\nsocket=/var/run/mysqld/mysqld.sock~g;s~^skip-networking~~g' -i /etc/my.cnf.d/* 
+RUn sed 's~^\[mysqld\]~[mysqld]\ndatadir=/var/lib/mysql\nbind-address = 0.0.0.0\nport = 3306\nsocket=/var/run/mysqld/mysqld.sock~g;s~^skip-networking~~g' -i /etc/my.cnf.d/* 
 
 RUN (delgroup www-data || true ) && deluser xfs ||true 
 RUN cat /etc/group|grep ":33:" && delgroup $(cat /etc/group|grep ":33:"|cut -d":" -f1) || true 
