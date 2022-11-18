@@ -35,7 +35,10 @@ RUN apk add --no-cache --no-progress --virtual BUILD_DEPS_PHP_GNUPG gpgme-dev \
 RUN /bin/bash -c  "echo extension=gnupg >> /etc/php8/conf.d/docker-php-ext-gnupg.ini"
 RUN mkdir -p /etc/php/8.0/
 RUN ln -s /etc/php8 /etc/php/8.0/fpm
+RUN ln -s /etc/php8 /etc/php/8.0/cli
+
 RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
+
 
 RUN apk add nano lftp openssh-client
 RUn sed 's~^\[mysqld\]~[mysqld]\ndata=/var/lib/mysql\nport = 3306~g' -i /etc/my.cnf.d/* 
