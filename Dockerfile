@@ -5,7 +5,8 @@ RUN mkdir -p /etc/redis && ln -s /etc/redis.conf /etc/redis/
 RUN touch /root/.bashrc
 RUN addgroup memcache && ((echo ;echo ;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo) |adduser -G memcache -D -h /var/www -s /bin/bash memcache )
 RUN usermod -s /bin/bash root && addgroup crontabs
-RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/sftp-server /usr/libexec/sftp-server)
+RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/ssh/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/ssh/sftp-server /usr/libexec/sftp-server) || true
+#RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/sftp-server /usr/libexec/sftp-server) || true
 
 
 RUN apk add php8
