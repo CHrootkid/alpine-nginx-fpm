@@ -63,7 +63,10 @@ COPY run-dropbear.sh /usr/local/bin/run.sh
 RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/http.d 
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
+RUN rm -rf /var/www/logs /var/www/run/ /var/www/modules
 
+VOLUME /var/lib/mysql
+VOLUME /var/www
 WORKDIR /var/www
 HEALTHCHECK --interval=180s --timeout=25s CMD /bin/bash /healthcheck.sh
 
