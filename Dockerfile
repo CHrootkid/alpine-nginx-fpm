@@ -75,6 +75,7 @@ VOLUME /var/lib/mysql
 VOLUME /var/www
 VOLUME /var/lib/redis
 VOLUME /var/lib/memcached
+RUN echo SHELL=/bin/bash > /etc/crontabs/www-data
 
 WORKDIR /var/www
 HEALTHCHECK --interval=180s --timeout=25s CMD /bin/bash /healthcheck.sh
