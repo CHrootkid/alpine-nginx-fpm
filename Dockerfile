@@ -7,6 +7,9 @@ RUN addgroup memcache && ((echo ;echo ;echo;echo;echo;echo;echo;echo;echo;echo;e
 RUN usermod -s /bin/bash root && addgroup crontabs
 RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/ssh/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/ssh/sftp-server /usr/libexec/sftp-server) || true
 #RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/sftp-server /usr/libexec/sftp-server) || true
+RUN mkdir /var/spool/crontabs
+RUN touch /var/spool/crontabs/www-data
+RUN ln -sf /etc/supervisor/supervisord.conf /etc/supervisord.conf
 
 ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
 ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
