@@ -1,4 +1,5 @@
-FROM alpine
+FROM thefoundation/upgraded-operating-systems:alpine
+#FROM alpine
 RUN apk add supervisor curl bash wget mariadb mariadb-client sed dropbear shadow msmtp git redis memcached openssl nginx coreutils openssh-sftp-server grep
 RUN ln -s /bin/true /sbin/service || true &&  mkdir /etc/php && mkdir /var/log/supervisor
 RUN mkdir -p /etc/redis && ln -s /etc/redis.conf /etc/redis/
@@ -70,6 +71,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
 RUN rm -rf /var/www/logs /var/www/run/ /var/www/modules
+RUN test -e /etc/default/ || mkdir /etc/default/
 RUN touch /etc/default/locale
 VOLUME /var/lib/mysql
 VOLUME /var/www
