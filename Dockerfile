@@ -10,7 +10,6 @@ RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/ssh/sftp-server && mkd
 RUN mkdir /var/spool/crontabs
 RUN touch /var/spool/crontabs/www-data
 RUN ln -sf /etc/supervisor/supervisord.conf /etc/supervisord.conf
-RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/http.d 
 
 ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
 ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
@@ -58,7 +57,7 @@ COPY healthcheck.sh shutdown.sh supervisor-logger run-apache.sh restart-websocke
 RUN ln -s /usr/bin/php81 /usr/bin/php || true
 COPY installers /
 COPY run-dropbear.sh /usr/local/bin/run.sh
-RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/conf.d
+RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/http.d 
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
 
