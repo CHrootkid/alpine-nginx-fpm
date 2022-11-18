@@ -41,7 +41,7 @@ RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
 
 
 RUN apk add nano lftp openssh-client
-RUn sed 's~^\[mysqld\]~[mysqld]\ndata=/var/lib/mysql\nport = 3306~g' -i /etc/my.cnf.d/* 
+RUn sed 's~^\[mysqld\]~[mysqld]\ndata=/var/lib/mysql\nbind-adress = 0.0.0.0\nport = 3306\nsocket=/var/run/mysqld/mysqld.sock~g' -i /etc/my.cnf.d/* 
 
 RUN (delgroup www-data || true ) && deluser xfs ||true 
 RUN cat /etc/group|grep ":33:" && delgroup $(cat /etc/group|grep ":33:"|cut -d":" -f1) || true 
