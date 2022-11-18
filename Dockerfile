@@ -1,5 +1,5 @@
 FROM alpine
-RUN apk add supervisor curl bash wget mariadb mariadb-client sed dropbear shadow msmtp git redis memcached openssl nginx coreutils openssh-sftp-server
+RUN apk add supervisor curl bash wget mariadb mariadb-client sed dropbear shadow msmtp git redis memcached openssl nginx coreutils openssh-sftp-server grep
 RUN ln -s /bin/true /sbin/service || true &&  mkdir /etc/php && mkdir /var/log/supervisor
 RUN mkdir -p /etc/redis && ln -s /etc/redis.conf /etc/redis/
 RUN touch /root/.bashrc
