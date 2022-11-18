@@ -70,7 +70,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
 RUN rm -rf /var/www/logs /var/www/run/ /var/www/modules
-
+RUN touch /etc/default/locale
 VOLUME /var/lib/mysql
 VOLUME /var/www
 VOLUME /var/lib/redis
