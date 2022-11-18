@@ -31,7 +31,7 @@ RUN apk add php8-pecl-imagick php8-pecl-uuid php8-pecl-event php8-pecl-apcu php8
 RUN apk add --no-cache --no-progress --virtual BUILD_DEPS_PHP_GNUPG gpgme-dev \
     && apk add --no-cache --no-progress gpgme \
     && pecl install gnupg 
-RUN /bin/bash -c  "echo extension=gnupg >> /etc/php8/conf.d/docker-php-ext-igbinary.ini"
+RUN /bin/bash -c  "echo extension=gnupg >> /etc/php8/conf.d/docker-php-ext-gnupg.ini"
 RUN mkdir -p /etc/php/8.0/
 RUN ln -s /etc/php8 /etc/php/8.0/fpm
 RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
