@@ -58,8 +58,7 @@ COPY healthcheck.sh shutdown.sh supervisor-logger run-apache.sh restart-websocke
 RUN ln -s /usr/bin/php81 /usr/bin/php || true
 COPY installers /
 COPY run-dropbear.sh /usr/local/bin/run.sh
-COPY nginx.conf  /etc/nginx/conf.d/default.conf
-#EXPOSE 80
+RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/conf.d
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
 
