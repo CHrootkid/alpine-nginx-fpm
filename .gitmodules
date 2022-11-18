@@ -1,0 +1,3 @@
+[submodule "Hocker"]
+	path = Hocker
+	url = https://github.com/TheFoundation/Hocker.git
