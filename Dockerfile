@@ -32,6 +32,9 @@ RUN mkdir -p /etc/php/8.0/
 RUN ln -s /etc/php8 /etc/php/8.0/fpm
 RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
 
+RUN apk add nano lftp openssl-client
+
+
 RUN (delgroup www-data || true ) && deluser xfs ||true 
 RUN cat /etc/group|grep ":33:" && delgroup $(cat /etc/group|grep ":33:"|cut -d":" -f1) || true 
 RUN addgroup -g 33 www-data
