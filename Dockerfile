@@ -7,7 +7,17 @@ RUN addgroup memcache && ((echo ;echo ;echo;echo;echo;echo;echo;echo;echo;echo;e
 RUN usermod -s /bin/bash root && addgroup crontabs
 RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/ssh/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/ssh/sftp-server /usr/libexec/sftp-server) || true
 #RUN test -e /usr/libexec/sftp-server || (test -e /usr/lib/sftp-server && mkdir -p /usr/libexec/ && ln -s /usr/lib/sftp-server /usr/libexec/sftp-server) || true
+ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
 
+RUN apk add --no-cache \
+    $MUSL_LOCALE_DEPS
+RUN apk add --no-cache \
+    $MUSL_LOCALE_DEPS \
+    && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
+    && unzip musl-locales-master.zip \
+      && cd musl-locales-master \
+      && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+      && cd .. && rm -r musl-locales-master 
 
 RUN apk add php8
 
