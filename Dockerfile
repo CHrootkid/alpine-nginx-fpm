@@ -27,7 +27,9 @@ RUN apk add php8
 
 RUN apk add $(apk list |cut -d"-" -f1-2|grep php8-[a-z]|grep -v -e pec -e dbg)
 RUN apk add php8-pecl-imagick php8-pecl-uuid php8-pecl-event php8-pecl-apcu php8-pecl-redis php8-pecl-zstd php8-pecl-igbinary php8-pecl-ssh2 php8-pecl-mongodb php8-pecl-oauth
-
+RUN apk add php8-pecl-igbinary php8-pecl-memcached php8-pecl-memcache 
+RUN /bin/bash -c "echo extension=memcached >> /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini"
+RUN /bin/bash -c  "echo extension=igbinary >> /usr/local/etc/php/conf.d/docker-php-ext-igbinary.ini"
 RUN mkdir -p /etc/php/8.0/
 RUN ln -s /etc/php8 /etc/php/8.0/fpm
 RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
@@ -61,7 +63,7 @@ RUN ln -s /usr/bin/php81 /usr/bin/php || true
 COPY installers /
 COPY run-dropbear.sh /usr/local/bin/run.sh
 RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/http.d 
-RUN rm -rf /etc/mysql || true &&    ln -sf /etc/my.cnf /etc/mysql
+RUN rm -rf /etc/mysql || true && ln -sf /etc/my.cnf /etc/mysql
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
