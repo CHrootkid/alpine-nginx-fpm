@@ -61,6 +61,7 @@ RUN ln -s /usr/bin/php81 /usr/bin/php || true
 COPY installers /
 COPY run-dropbear.sh /usr/local/bin/run.sh
 RUN mv /etc/nginx/http.d /etc/nginx/conf.d && ln -s  /etc/nginx/conf.d /etc/nginx/http.d 
+RUN rm -rf /etc/mysql || true &&    ln -sf /etc/my.cnf /etc/mysql
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 22 80 443
 RUN chmod +x /supervisor-logger
