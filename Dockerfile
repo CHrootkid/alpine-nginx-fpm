@@ -14,6 +14,7 @@ RUN apk add php8-pecl-imagick php8-pecl-uuid php8-pecl-event php8-pecl-apcu php8
 
 RUN mkdir -p /etc/php/8.0/
 RUN ln -s /etc/php8 /etc/php/8.0/fpm
+RUN ln -s /etc/php8/php-fpm.d/ /etc/php/8.0/fpm/pool.d
 
 RUN (delgroup www-data || true ) && deluser xfs ||true 
 RUN cat /etc/group|grep ":33:" && delgroup $(cat /etc/group|grep ":33:"|cut -d":" -f1) || true 
